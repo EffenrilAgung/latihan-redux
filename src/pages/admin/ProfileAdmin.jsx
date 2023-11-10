@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import FormProfile from '../../components/templates/FormProfile';
-import { Link } from 'react-router-dom';
-import { getUser } from '../../feature/userDetailsSlice';
+import { getUser, deleteUser } from '../../feature/userDetailsSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from '../../components/atoms/button';
 
 const ProfileAdmin = () => {
 	const dispatch = useDispatch();
@@ -47,18 +47,23 @@ const ProfileAdmin = () => {
 											return (
 												<tr key={user.id}>
 													<td className="border border-slate-700">{user.id}</td>
-													<td className="border border-slate-700">
+													<td className="border border-slate-700 text-sm">
 														{user.name}
 													</td>
-													<td className="border border-slate-700">
+													<td className="border border-slate-700 text-sm">
 														{user.email}
 													</td>
-													<td className="border border-slate-700">
+													<td className="border border-slate-700 text-sm">
 														{user.isAdmin ? 'Admin' : 'User'}
 													</td>
-													<td className="border border-slate-700">
+													<td className="border border-slate-700 py-5 text-sm">
+														<Button
+															className="p-1 rounded bg-red-600 text-white font-semibold"
+															onClick={() => dispatch(deleteUser(user.id))}
+														>
+															Delete
+														</Button>
 													</td>
-                                                    <Link onClick={dispatch(deleteUser(user.id))} />
 												</tr>
 											);
 										})}
