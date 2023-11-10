@@ -10,7 +10,7 @@ const LinkNavbar = () => {
 				Home
 			</NavLink>
 			<NavLink
-				to="/signup"
+				to="/profile"
 				className="text-base font-light hover:bg-blue-700 px-5 py-1 hover:rounded-sm hover:text-white"
 			>
 				Profile

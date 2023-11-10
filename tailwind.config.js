@@ -19,6 +19,10 @@ export default {
 			fontFamily: {
 				agbalumo: ['Agbalumo', 'sans-serif'],
 			},
+			backgroundImage: {
+				'login-bg': 'url(./assets/Images/bg.jpg)',
+				'profile-bg': 'url(./assets/Images/profiles.jpg)',
+			},
 		},
 	},
 	plugins: [],
