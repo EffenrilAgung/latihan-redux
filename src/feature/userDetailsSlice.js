@@ -1,51 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-// * Create Action
-export const createUser = createAsyncThunk(
-	'createUser',
-	async (data, rejectedWithValue) => {
-		try {
-			const response = await axios.post(
-				'https://654c39fa77200d6ba858a20a.mockapi.io/users',
-				data
-			);
-			return response.data;
-		} catch (error) {
-			return rejectedWithValue(error);
-		}
-	}
-);
-
-//* Get All Users
-export const getUser = createAsyncThunk(
-	'getUser',
-	async (rejectedWithValue) => {
-		try {
-			const response = await axios.get(
-				'https://654c39fa77200d6ba858a20a.mockapi.io/users'
-			);
-			return response.data;
-		} catch (error) {
-			return rejectedWithValue(error);
-		}
-	}
-);
-
-//* Delete Users By Id
-export const deleteUser = createAsyncThunk(
-	'deleteUser',
-	async (id, rejectedWithValue) => {
-		try {
-			const response = await axios.delete(
-				`https://654c39fa77200d6ba858a20a.mockapi.io/users/${id}`
-			);
-			return response;
-		} catch (error) {
-			rejectedWithValue(error);
-		}
-	}
-);
+import { createSlice } from '@reduxjs/toolkit';
+import { createUser, deleteUser, getAdmin, getUser } from './actionUserDetails';
 
 export const userDetails = createSlice({
 	name: 'userDetails',
@@ -83,9 +37,32 @@ export const userDetails = createSlice({
 		[deleteUser.fulfilled]: (state, action) => {
 			state.loading = false;
 
+			const { id } = action.payload;
+
+			if (id) {
+				state.users = state.users.filter((user) => user.id !== id);
+			}
+
 			console.log('delete action', action.payload);
 		},
 		[deleteUser.rejected]: (state, action) => {
+			state.loading = false;
+			state.error = action.error.message;
+		},
+		[getAdmin.pending]: (state) => {
+			state.loading = true;
+		},
+		[getAdmin.fulfilled]: (state, action) => {
+			state.loading = false;
+			const { id } = action.payload;
+
+			if (id) {
+				state.users = state.users.filter((user) => user.isAdmin === true);
+			}
+
+			// console.log('getAdmin action', action.payload);
+		},
+		[getAdmin.rejected]: (state, action) => {
 			state.loading = false;
 			state.error = action.error.message;
 		},

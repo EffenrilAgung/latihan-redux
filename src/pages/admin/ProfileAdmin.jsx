@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import FormProfile from '../../components/templates/FormProfile';
-import { getUser, deleteUser } from '../../feature/userDetailsSlice';
+import { getUser, deleteUser, getAdmin } from '../../feature/actionUserDetails';
 import { useDispatch, useSelector } from 'react-redux';
+import FormsLabel from '../../components/molecules/FormsLabel';
 import Button from '../../components/atoms/button';
 
 const ProfileAdmin = () => {
@@ -24,8 +24,47 @@ const ProfileAdmin = () => {
 			<React.Fragment>
 				<div className="grid grid-flow-row grid-cols-12">
 					<div className="col-span-6 border flex justify-center flex-col items-center">
-						<h2 className="text-3xl font-semibold">Profile</h2>
-						<FormProfile />
+						<h2 className="text-3xl font-semibold">Profile Admin</h2>
+						<form className="flex flex-col gap-5  w-screen py-5 items-center">
+							{users &&
+								users
+									.filter((user) => user.isAdmin)
+									.map((adminUser) => {
+										console.log(adminUser);
+										return (
+											<>
+												<div className="flex flex-col gap-5">
+													<FormsLabel
+														type="email"
+														placeholder="Enter Email"
+														className="w-96 bg-slate-50 py-2  border"
+														value={adminUser.email}
+													>
+														Email
+													</FormsLabel>
+													<FormsLabel
+														type="text"
+														placeholder="Enter Name"
+														className="w-96 bg-slate-50 py-2  border"
+														value={adminUser.name}
+													>
+														Name
+													</FormsLabel>
+													<FormsLabel
+														type="password"
+														placeholder="Enter Password"
+														className="w-96 bg-slate-50 py-2  border"
+													>
+														Password
+													</FormsLabel>
+												</div>
+												<Button className="bg-blue-600 px-5 py-2 rounded text-white font-semibold">
+													Update Now
+												</Button>
+											</>
+										);
+									})}
+						</form>
 					</div>
 					<div className="col-span-6 ">
 						<div className="flex flex-col items-center px-4">

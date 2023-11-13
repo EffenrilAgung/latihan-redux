@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '../atoms/button';
 import FormsLabel from '../molecules/FormsLabel';
-const FormProfile = () => {
+import { useDispatch, useSelector } from 'react-redux';
+
+const FormProfile = (props) => {
+	const dispatch = useDispatch();
+
+	const { admin } = useSelector((state) => state.app);
+
+	useEffect(() => {
+		// dispatch(getAdmin());
+	}, []);
+
+	// console.log(admin);
+
 	return (
 		<React.Fragment>
-			<div className="flex flex-col gap-5  w-screen py-5 items-center">
+			<form className="flex flex-col gap-5  w-screen py-5 items-center">
 				<div className="flex flex-col gap-5">
 					<FormsLabel
 						type="email"
@@ -31,7 +43,7 @@ const FormProfile = () => {
 				<Button className="bg-blue-600 px-5 py-2 rounded text-white font-semibold">
 					Update Now
 				</Button>
-			</div>
+			</form>
 		</React.Fragment>
 	);
 };

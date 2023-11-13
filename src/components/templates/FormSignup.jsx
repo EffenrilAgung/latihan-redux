@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import FormsLabel from '../molecules/FormsLabel';
 import Button from '../atoms/button';
 
-import { createUser } from '../../feature/userDetailsSlice';
+import { createUser } from '../../feature/actionUserDetails';
 
 const FormSignup = () => {
 	const [users, setUsers] = useState({});
